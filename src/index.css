@@ -1,0 +1,26 @@
+/* src/index.css */
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(calc(100vw - 100px), 25vh); }
+  50% { transform: translate(calc(100vw - 100px), calc(100vh - 100px)); }
+  75% { transform: translate(0, calc(100vh - 100px)); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+@layer utilities {
+  .animate-float { animation: float 30s infinite ease-in-out; }
+  .animate-float-apple { animation: float 15s infinite ease-in-out 1s, bounce 2s infinite; }
+  .animate-float-carrot { animation: float 18s infinite ease-in-out 2s, bounce 2.5s infinite; }
+  .animate-float-broccoli { animation: float 22s infinite ease-in-out 3s, bounce 3s infinite; }
+  .animate-float-grapes { animation: float 25s infinite ease-in-out 4s, bounce 3.5s infinite; }
+}
