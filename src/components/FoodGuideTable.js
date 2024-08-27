@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import html2canvas from 'html2canvas';
 import Button from './common/Button';
 import { getFoodIcon, getFoodGroupEmoji } from '../utils/foodIcons';
+import { getRandomServingSize } from '../utils/utils';
 
 const FoodGuideTable = ({ member }) => {
   const tableRef = useRef(null);
@@ -17,7 +18,7 @@ const FoodGuideTable = ({ member }) => {
         windowWidth: 1200,
         windowHeight: 1600
       });
-      
+
       const image = canvas.toDataURL("image/png", 1.0);
       const link = document.createElement('a');
       link.download = `${member.name}_food_guide.png`;
@@ -74,17 +75,25 @@ const FoodGuideTable = ({ member }) => {
                 </h3>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
                   {item.foods.map((food, foodIndex) => {
-                    const [foodName, servingSize] = food.split(' (');
+                    const match = food.match(/(.+)\s\((.+)\)/);
+                    const foodName = match ? match[1].trim() : food;
+                    let servingSize = match ? match[2].trim() : '';
+                    
+                    // If serving size is empty, generate a random one
+                    if (!servingSize) {
+                      servingSize = getRandomServingSize(item.group);
+                    }
+
                     return (
                       <motion.div 
                         key={foodIndex} 
                         className="bg-gray-100 p-4 rounded-lg text-center shadow-md cursor-pointer"
                         whileHover={{ 
-                          scale: 1.1, 
+                          scale: 1.05, 
                           boxShadow: "0px 0px 8px rgba(0,0,0,0.2)",
                           transition: { duration: 0.2 }
                         }}
-                        whileTap={{ scale: 0.75 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <span className="text-4xl mb-2 block">{getFoodIcon(foodName)}</span>
                         <p className="font-medium text-sm mb-1">{foodName}</p>
