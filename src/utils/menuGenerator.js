@@ -1,5 +1,6 @@
 // src/utils/menuGenerator.js
 import { foods, foodCategories, servingsPerDay, foodGroups } from '../data/foodData';
+import { getRandomServingSize } from './utils';
 
 export const generateMenu = (age, gender, preferences) => {
   const ageGroup = getAgeGroup(age);
@@ -17,10 +18,10 @@ export const generateMenu = (age, gender, preferences) => {
     let orangeCount = 0;
 
     const categoryFoods = foods.filter(f => f.fgid === fg.fgid);
-    
+
     while (foodItems.size < servingCount) {
       let selectedFood;
-      
+
       if (fg.fgid === 'vf') {
         if (darkGreenCount === 0) {
           const darkGreenFoods = categoryFoods.filter(f => f.fgcat_id === 1);
@@ -55,7 +56,8 @@ export const generateMenu = (age, gender, preferences) => {
       group: fg.foodgroup,
       foods: Array.from(foodItems).map(food => {
         const foodItem = categoryFoods.find(f => f.food === food);
-        return `${foodItem.food} (${foodItem.srvg_sz})`;
+        const servingSize = foodItem.srvg_sz || getRandomServingSize(fg.fgid);
+        return `${foodItem.food} (${servingSize})`;
       }),
       servings: serving.servings
     });
