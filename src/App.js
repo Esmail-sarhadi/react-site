@@ -1,6 +1,6 @@
 import CanadaFoodGuideApp from './components/CanadaFoodGuideApp';
 
-function App() {
+function App() { 
   return (
     <div className="App"> 
       <CanadaFoodGuideApp /> 
