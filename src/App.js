@@ -3,7 +3,7 @@ import CanadaFoodGuideApp from './components/CanadaFoodGuideApp';
 function App() {
   return (
     <div className="App">
-      <CanadaFoodGuideApp />
+      <CanadaFoodGuideApp /> 
     </div> 
   );
 }
